@@ -1,4 +1,4 @@
-@props(['product'])
+                                              @props(['product'])
 
 <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
     <div class="relative">

@@ -74,14 +74,20 @@
         <h2 class="text-3xl font-bold mb-8">Categorías</h2>
         <div class="swiper categoriesSwiper">
             <div class="swiper-wrapper">
-                <!-- Ejemplo de categoría -->
+                @foreach($categories as $category)
                 <div class="swiper-slide relative rounded-lg overflow-hidden shadow-lg cursor-pointer hover:shadow-2xl transition-shadow duration-300">
-                    <img src="{{ asset('images/category-example.jpg') }}" alt="Categoría ejemplo" class="w-full h-40 object-cover" />
-                    <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-                        <span class="text-white font-semibold text-lg px-4 py-2 bg-[#556B2F] rounded-full">Armas De Fuego</span>
-                    </div>
+                    <a href="{{ route('web.category.show', $category->slug) }}" class="block w-full h-full">
+                        <!-- Placeholder image for now - you can add category images later -->
+                        <div class="w-full h-40 bg-gradient-to-br from-[#556B2F] to-[#2F4F4F] flex items-center justify-center">
+                            <i class="fas fa-tag text-white text-4xl"></i>
+                        </div>
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center text-white p-4">
+                            <span class="font-semibold text-lg px-4 py-2 bg-[#556B2F] rounded-full mb-2">{{ $category->name }}</span>
+                            <span class="text-sm">{{ $category->products_count }} productos</span>
+                        </div>
+                    </a>
                 </div>
-                <!-- Repetir para otras categorías -->
+                @endforeach
             </div>
             <!-- Paginación -->
             <div class="swiper-pagination"></div>
@@ -92,77 +98,20 @@
     <section class="bg-gray-100 py-12">
         <div class="max-w-7xl mx-auto px-4">
             <h2 class="text-3xl font-bold mb-8">Productos Destacados</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <!-- Primera fila de productos -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                    <img src="{{ asset('images/product1.jpg') }}" alt="Producto 1" class="w-full h-48 object-contain" />
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold mb-2">Producto 1</h3>
-                        <p class="text-[#556B2F] font-bold text-xl">$100.000</p>
-                        <a href="#" class="inline-block mt-4 bg-[#556B2F] text-white py-2 px-4 rounded hover:bg-[#2F4F4F] transition-colors">Ver Más</a>
-                    </div>
+            @if($featuredProducts->count() > 0)
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    @foreach($featuredProducts as $product)
+                        <x-product-card :product="$product" />
+                    @endforeach
                 </div>
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                    <img src="{{ asset('images/product2.jpg') }}" alt="Producto 2" class="w-full h-48 object-contain" />
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold mb-2">Producto 2</h3>
-                        <p class="text-[#556B2F] font-bold text-xl">$120.000</p>
-                        <a href="#" class="inline-block mt-4 bg-[#556B2F] text-white py-2 px-4 rounded hover:bg-[#2F4F4F] transition-colors">Ver Más</a>
-                    </div>
+                <div class="text-center mt-8">
+                    <a href="{{ route('web.product.index') }}" class="bg-[#556B2F] text-white py-2 px-6 rounded hover:bg-[#2F4F4F] transition-colors">Ver Más Productos</a>
                 </div>
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                    <img src="{{ asset('images/product3.jpg') }}" alt="Producto 3" class="w-full h-48 object-contain" />
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold mb-2">Producto 3</h3>
-                        <p class="text-[#556B2F] font-bold text-xl">$90.000</p>
-                        <a href="#" class="inline-block mt-4 bg-[#556B2F] text-white py-2 px-4 rounded hover:bg-[#2F4F4F] transition-colors">Ver Más</a>
-                    </div>
+            @else
+                <div class="text-center py-12">
+                    <p class="text-gray-500 text-lg">No hay productos destacados disponibles en este momento.</p>
                 </div>
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                    <img src="{{ asset('images/product4.jpg') }}" alt="Producto 4" class="w-full h-48 object-contain" />
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold mb-2">Producto 4</h3>
-                        <p class="text-[#556B2F] font-bold text-xl">$110.000</p>
-                        <a href="#" class="inline-block mt-4 bg-[#556B2F] text-white py-2 px-4 rounded hover:bg-[#2F4F4F] transition-colors">Ver Más</a>
-                    </div>
-                </div>
-                <!-- Segunda fila de productos -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                    <img src="{{ asset('images/product5.jpg') }}" alt="Producto 5" class="w-full h-48 object-contain" />
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold mb-2">Producto 5</h3>
-                        <p class="text-[#556B2F] font-bold text-xl">$130.000</p>
-                        <a href="#" class="inline-block mt-4 bg-[#556B2F] text-white py-2 px-4 rounded hover:bg-[#2F4F4F] transition-colors">Ver Más</a>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                    <img src="{{ asset('images/product6.jpg') }}" alt="Producto 6" class="w-full h-48 object-contain" />
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold mb-2">Producto 6</h3>
-                        <p class="text-[#556B2F] font-bold text-xl">$140.000</p>
-                        <a href="#" class="inline-block mt-4 bg-[#556B2F] text-white py-2 px-4 rounded hover:bg-[#2F4F4F] transition-colors">Ver Más</a>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                    <img src="{{ asset('images/product7.jpg') }}" alt="Producto 7" class="w-full h-48 object-contain" />
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold mb-2">Producto 7</h3>
-                        <p class="text-[#556B2F] font-bold text-xl">$150.000</p>
-                        <a href="#" class="inline-block mt-4 bg-[#556B2F] text-white py-2 px-4 rounded hover:bg-[#2F4F4F] transition-colors">Ver Más</a>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                    <img src="{{ asset('images/product8.jpg') }}" alt="Producto 8" class="w-full h-48 object-contain" />
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold mb-2">Producto 8</h3>
-                        <p class="text-[#556B2F] font-bold text-xl">$160.000</p>
-                        <a href="#" class="inline-block mt-4 bg-[#556B2F] text-white py-2 px-4 rounded hover:bg-[#2F4F4F] transition-colors">Ver Más</a>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center mt-8">
-                <button class="bg-[#556B2F] text-white py-2 px-6 rounded hover:bg-[#2F4F4F] transition-colors">Ver Más Productos</button>
-            </div>
+            @endif
         </div>
     </section>
 
@@ -179,61 +128,63 @@
     </section>
 
     <!-- Sección Vestuario y Equipo -->
-    <section class="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="relative rounded-lg overflow-hidden shadow-lg">
-            <img src="{{ asset('images/vestuario.jpg') }}" alt="Vestuario y Equipo" class="w-full h-full object-cover" />
-            <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-white p-6">
-                <h2 class="text-3xl font-bold mb-4">Vestuario y Equipo</h2>
-                <button class="bg-[#556B2F] px-6 py-2 rounded hover:bg-[#2F4F4F] transition-colors">Comprar Ahora</button>
-            </div>
-        </div>
-        <div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                <img src="{{ asset('images/product9.jpg') }}" alt="Producto 9" class="w-full h-48 object-contain" />
-                <div class="p-4">
-                    <h3 class="text-lg font-semibold mb-2">Producto 9</h3>
-                    <p class="text-[#556B2F] font-bold text-xl">$80.000</p>
-                    <a href="#" class="inline-block mt-4 bg-[#556B2F] text-white py-2 px-4 rounded hover:bg-[#2F4F4F] transition-colors">Ver Más</a>
+    <section class="max-w-7xl mx-auto px-4 py-12">
+        <h2 class="text-3xl font-bold mb-8">Vestuario y Equipo</h2>
+        @if($vestuarioCategory && $vestuarioProducts->count() > 0)
+            <div class="grid grid-cols-4 gap-6">
+                <!-- Card principal de categoría (ocupa 2 filas) -->
+                <div class="col-span-1 row-span-2 relative rounded-lg overflow-hidden shadow-lg group cursor-pointer">
+                    <a href="{{ route('web.category.show', $vestuarioCategory->slug) }}" class="block w-full h-full">
+                        <img src="{{ asset('images/vestuario.jpg') }}" alt="Vestuario y Equipo" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                        <div class="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-60 transition-all duration-300 flex flex-col justify-center items-center text-white p-6">
+                            <h3 class="text-2xl font-bold mb-2">{{ $vestuarioCategory->name }}</h3>
+                            <p class="text-sm mb-2">{{ $vestuarioCategory->products_count }} productos</p>
+                            <span class="bg-[#556B2F] px-3 py-1 text-sm rounded hover:bg-[#2F4F4F] transition-colors">Ver Todos</span>
+                        </div>
+                    </a>
                 </div>
+                <!-- Productos de la categoría (3 productos en el lado derecho) -->
+                @foreach($vestuarioProducts as $product)
+                    <div class="col-span-1">
+                        <x-product-card :product="$product" />
+                    </div>
+                @endforeach
             </div>
-            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                <img src="{{ asset('images/product10.jpg') }}" alt="Producto 10" class="w-full h-48 object-contain" />
-                <div class="p-4">
-                    <h3 class="text-lg font-semibold mb-2">Producto 10</h3>
-                    <p class="text-[#556B2F] font-bold text-xl">$95.000</p>
-                    <a href="#" class="inline-block mt-4 bg-[#556B2F] text-white py-2 px-4 rounded hover:bg-[#2F4F4F] transition-colors">Ver Más</a>
-                </div>
+        @else
+            <div class="text-center py-12">
+                <p class="text-gray-500 text-lg">Categoría de vestuario no disponible en este momento.</p>
             </div>
-        </div>
+        @endif
     </section>
 
-        <!-- Sección Equipo de Caza -->
-    <section class="max-w-7xl mx-auto px-4 py-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="relative rounded-lg overflow-hidden shadow-lg">
-            <img src="{{ asset('images/vestuario.jpg') }}" alt="Vestuario y Equipo" class="w-full h-full object-cover" />
-            <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-white p-6">
-                <h2 class="text-3xl font-bold mb-4">Equipo de Caza</h2>
-                <button class="bg-[#556B2F] px-6 py-2 rounded hover:bg-[#2F4F4F] transition-colors">Comprar Ahora</button>
-            </div>
-        </div>
-        <div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                <img src="{{ asset('images/product9.jpg') }}" alt="Producto 9" class="w-full h-48 object-contain" />
-                <div class="p-4">
-                    <h3 class="text-lg font-semibold mb-2">Producto 9</h3>
-                    <p class="text-[#556B2F] font-bold text-xl">$80.000</p>
-                    <a href="#" class="inline-block mt-4 bg-[#556B2F] text-white py-2 px-4 rounded hover:bg-[#2F4F4F] transition-colors">Ver Más</a>
+    <!-- Sección Equipo de Caza -->
+    <section class="max-w-7xl mx-auto px-4 py-12">
+        <h2 class="text-3xl font-bold mb-8">Equipo de Caza</h2>
+        @if($cazaCategory && $cazaProducts->count() > 0)
+            <div class="grid grid-cols-4 gap-6">
+                <!-- Card principal de categoría (ocupa 2 filas) -->
+                <div class="col-span-1 row-span-2 relative rounded-lg overflow-hidden shadow-lg group cursor-pointer">
+                    <a href="{{ route('web.category.show', $cazaCategory->slug) }}" class="block w-full h-full">
+                        <img src="{{ asset('images/caza.jpg') }}" alt="Equipo de Caza" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                        <div class="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-60 transition-all duration-300 flex flex-col justify-center items-center text-white p-6">
+                            <h3 class="text-2xl font-bold mb-2">{{ $cazaCategory->name }}</h3>
+                            <p class="text-sm mb-2">{{ $cazaCategory->products_count }} productos</p>
+                            <span class="bg-[#556B2F] px-3 py-1 text-sm rounded hover:bg-[#2F4F4F] transition-colors">Ver Todos</span>
+                        </div>
+                    </a>
                 </div>
+                <!-- Productos de la categoría (3 productos en el lado derecho) -->
+                @foreach($cazaProducts as $product)
+                    <div class="col-span-1">
+                        <x-product-card :product="$product" />
+                    </div>
+                @endforeach
             </div>
-            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                <img src="{{ asset('images/product10.jpg') }}" alt="Producto 10" class="w-full h-48 object-contain" />
-                <div class="p-4">
-                    <h3 class="text-lg font-semibold mb-2">Producto 10</h3>
-                    <p class="text-[#556B2F] font-bold text-xl">$95.000</p>
-                    <a href="#" class="inline-block mt-4 bg-[#556B2F] text-white py-2 px-4 rounded hover:bg-[#2F4F4F] transition-colors">Ver Más</a>
-                </div>
+        @else
+            <div class="text-center py-12">
+                <p class="text-gray-500 text-lg">Categoría de caza no disponible en este momento.</p>
             </div>
-        </div>
+        @endif
     </section>
 
     <!-- Sección Imágenes Referenciales -->
@@ -246,81 +197,35 @@
         </div>
     </section>
 
-    <!-- Sección Productos Destacados -->
+    <!-- Sección Camping / Trekking -->
     <section class="bg-gray-100 py-12">
         <div class="max-w-7xl mx-auto px-4">
             <h2 class="text-3xl font-bold mb-8">Camping / Trekking</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <!-- Primera fila de productos -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                    <img src="{{ asset('images/product1.jpg') }}" alt="Producto 1" class="w-full h-48 object-cover" />
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold mb-2">Producto 1</h3>
-                        <p class="text-[#556B2F] font-bold text-xl">$100.000</p>
-                        <a href="#" class="inline-block mt-4 bg-[#556B2F] text-white py-2 px-4 rounded hover:bg-[#2F4F4F] transition-colors">Ver Más</a>
+            @if($campingCategory && $campingProducts->count() > 0)
+                <div class="grid grid-cols-5 gap-4">
+                    <!-- Card principal de categoría (ocupa 2 filas) -->
+                    <div class="col-span-2 row-span-3 relative rounded-lg overflow-hidden shadow-lg group cursor-pointer">
+                        <a href="{{ route('web.category.show', $campingCategory->slug) }}" class="block w-full h-full">
+                            <img src="{{ asset('images/trekking.jpg') }}" alt="Camping / Trekking" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                            <div class="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-60 transition-all duration-300 flex flex-col justify-center items-center text-white p-6">
+                                <h3 class="text-2xl font-bold mb-2">{{ $campingCategory->name }}</h3>
+                                <p class="text-sm mb-2">{{ $campingCategory->products_count }} productos</p>
+                                <span class="bg-[#556B2F] px-3 py-1 text-sm rounded hover:bg-[#2F4F4F] transition-colors">Ver Todos</span>
+                            </div>
+                        </a>
                     </div>
+                    <!-- Productos de la categoría (6 productos en el lado derecho) -->
+                    @foreach($campingProducts as $product)
+                        <div class="col-span-1">
+                            <x-product-card :product="$product" />
+                        </div>
+                    @endforeach
                 </div>
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                    <img src="{{ asset('images/product2.jpg') }}" alt="Producto 2" class="w-full h-48 object-cover" />
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold mb-2">Producto 2</h3>
-                        <p class="text-[#556B2F] font-bold text-xl">$120.000</p>
-                        <a href="#" class="inline-block mt-4 bg-[#556B2F] text-white py-2 px-4 rounded hover:bg-[#2F4F4F] transition-colors">Ver Más</a>
-                    </div>
+            @else
+                <div class="text-center py-12">
+                    <p class="text-gray-500 text-lg">Categoría de camping no disponible en este momento.</p>
                 </div>
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                    <img src="{{ asset('images/product3.jpg') }}" alt="Producto 3" class="w-full h-48 object-cover" />
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold mb-2">Producto 3</h3>
-                        <p class="text-[#556B2F] font-bold text-xl">$90.000</p>
-                        <a href="#" class="inline-block mt-4 bg-[#556B2F] text-white py-2 px-4 rounded hover:bg-[#2F4F4F] transition-colors">Ver Más</a>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                    <img src="{{ asset('images/product4.jpg') }}" alt="Producto 4" class="w-full h-48 object-cover" />
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold mb-2">Producto 4</h3>
-                        <p class="text-[#556B2F] font-bold text-xl">$110.000</p>
-                        <a href="#" class="inline-block mt-4 bg-[#556B2F] text-white py-2 px-4 rounded hover:bg-[#2F4F4F] transition-colors">Ver Más</a>
-                    </div>
-                </div>
-                <!-- Segunda fila de productos -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                    <img src="{{ asset('images/product5.jpg') }}" alt="Producto 5" class="w-full h-48 object-cover" />
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold mb-2">Producto 5</h3>
-                        <p class="text-[#556B2F] font-bold text-xl">$130.000</p>
-                        <a href="#" class="inline-block mt-4 bg-[#556B2F] text-white py-2 px-4 rounded hover:bg-[#2F4F4F] transition-colors">Ver Más</a>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                    <img src="{{ asset('images/product6.jpg') }}" alt="Producto 6" class="w-full h-48 object-cover" />
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold mb-2">Producto 6</h3>
-                        <p class="text-[#556B2F] font-bold text-xl">$140.000</p>
-                        <a href="#" class="inline-block mt-4 bg-[#556B2F] text-white py-2 px-4 rounded hover:bg-[#2F4F4F] transition-colors">Ver Más</a>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                    <img src="{{ asset('images/product7.jpg') }}" alt="Producto 7" class="w-full h-48 object-cover" />
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold mb-2">Producto 7</h3>
-                        <p class="text-[#556B2F] font-bold text-xl">$150.000</p>
-                        <a href="#" class="inline-block mt-4 bg-[#556B2F] text-white py-2 px-4 rounded hover:bg-[#2F4F4F] transition-colors">Ver Más</a>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                    <img src="{{ asset('images/product8.jpg') }}" alt="Producto 8" class="w-full h-48 object-cover" />
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold mb-2">Producto 8</h3>
-                        <p class="text-[#556B2F] font-bold text-xl">$160.000</p>
-                        <a href="#" class="inline-block mt-4 bg-[#556B2F] text-white py-2 px-4 rounded hover:bg-[#2F4F4F] transition-colors">Ver Más</a>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center mt-8">
-                <button class="bg-[#556B2F] text-white py-2 px-6 rounded hover:bg-[#2F4F4F] transition-colors">Ver Más Productos</button>
-            </div>
+            @endif
         </div>
     </section>
 
