@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Administrador',
             'email' => 'admin@armeria.cl',
             'password' => Hash::make('password'),
+            'role' => 'admin',
             'email_verified_at' => now(),
         ]);
 

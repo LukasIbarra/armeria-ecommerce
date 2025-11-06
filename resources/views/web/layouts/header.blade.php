@@ -42,7 +42,7 @@
             <!-- Barra de búsqueda -->
             <div class="flex-1 mx-6">
                 <form action="{{ url('/') }}" method="GET">
-                    <input type="text" name="q" placeholder="Búsqueda de productos" 
+                    <input type="text" name="q" placeholder="Búsqueda de productos"
                            class="w-full rounded-md py-2 px-4 text-black focus:outline-none" />
                 </form>
             </div>
@@ -56,13 +56,19 @@
                     <i class="fas fa-heart fa-lg"></i>
                 </a>
                 @guest
-                    <a href="{{ url('/') }}" class="text-white hover:text-[#556B2F]" title="Iniciar sesión">
+                    <a href="{{ route('login') }}" class="text-white hover:text-[#556B2F]" title="Iniciar sesión">
                         <i class="fas fa-user fa-lg"></i>
                     </a>
                 @else
-                    <a href="{{ url('/') }}" class="text-white hover:text-[#556B2F]" title="Perfil">
-                        <i class="fas fa-user fa-lg"></i>
-                    </a>
+                    @if(Auth::user()->role === 'admin')
+                        <a href="{{ route('admin.dashboard') }}" class="text-white hover:text-[#556B2F]" title="Panel Admin">
+                            <i class="fas fa-cog fa-lg"></i>
+                        </a>
+                    @else
+                        <a href="{{ url('/') }}" class="text-white hover:text-[#556B2F]" title="Perfil">
+                            <i class="fas fa-user fa-lg"></i>
+                        </a>
+                    @endif
                 @endguest
                 <a href="{{ url('/') }}" class="bg-white text-black rounded p-2 shadow" title="Pedidos">
                     <i class="fas fa-clipboard-list fa-lg"></i>
@@ -91,9 +97,9 @@
   </div>
 
   <!-- Dropdown -->
-  <div class="absolute top-full left-0 bg-black/95 backdrop-blur-sm border border-gray-700 rounded-md shadow-2xl 
-              opacity-0 invisible group-hover:opacity-100 group-hover:visible 
-              transition-all duration-300 ease-out transform scale-95 group-hover:scale-100 
+  <div class="absolute top-full left-0 bg-black/95 backdrop-blur-sm border border-gray-700 rounded-md shadow-2xl
+              opacity-0 invisible group-hover:opacity-100 group-hover:visible
+              transition-all duration-300 ease-out transform scale-95 group-hover:scale-100
               z-[9999] w-[480px] mt-2">
     <div class="grid grid-cols-2 gap-1 p-3 max-h-[70vh] scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900">
       @foreach([
