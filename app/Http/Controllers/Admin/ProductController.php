@@ -89,7 +89,7 @@ class ProductController extends Controller
             ]);
         }
 
-        return response()->json(['success' => true, 'message' => 'Producto creado exitosamente.']);
+        return redirect()->route('admin.products.index')->with('success', 'Producto creado exitosamente.');
     }
 
     /**
@@ -99,17 +99,7 @@ class ProductController extends Controller
     {
         $product->load(['category', 'images', 'variants']);
 
-        return response()->json([
-            'name' => $product->name,
-            'description' => $product->description,
-            'price' => $product->price,
-            'stock' => $product->stock,
-            'category' => $product->category->name,
-            'sku' => $product->sku,
-            'status' => $product->status,
-            'is_featured' => $product->is_featured,
-            'image' => $product->images->first()?->path,
-        ]);
+        return view('admin.products.show', compact('product'));
     }
 
     /**
@@ -120,17 +110,7 @@ class ProductController extends Controller
         $categories = Category::all();
         $product->load(['images', 'variants']);
 
-        return response()->json([
-            'name' => $product->name,
-            'description' => $product->description,
-            'price' => $product->price,
-            'stock' => $product->stock,
-            'category_id' => $product->category_id,
-            'sku' => $product->sku,
-            'status' => $product->status,
-            'is_featured' => $product->is_featured,
-            'image' => $product->images->first()?->path,
-        ]);
+        return view('admin.products.edit', compact('product', 'categories'));
     }
 
     /**
@@ -181,7 +161,7 @@ class ProductController extends Controller
             ]);
         }
 
-        return response()->json(['success' => true, 'message' => 'Producto actualizado exitosamente.']);
+        return redirect()->route('admin.products.show', $product)->with('success', 'Producto actualizado exitosamente.');
     }
 
     /**
@@ -197,6 +177,6 @@ class ProductController extends Controller
 
         $product->delete();
 
-        return response()->json(['success' => true, 'message' => 'Producto eliminado exitosamente.']);
+        return redirect()->route('admin.products.index')->with('success', 'Producto eliminado exitosamente.');
     }
 }

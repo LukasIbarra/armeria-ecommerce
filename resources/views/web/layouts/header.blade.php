@@ -2,7 +2,7 @@
 
     <!-- Barra superior verde fija -->
     <div class="bg-[#556B2F] text-white text-sm fixed top-0 left-0 right-0 z-50">
-        <div class="max-w-7xl mx-auto flex justify-between items-center px-4 py-1">
+        <div class="max-w-7xl mx-auto flex justify-between items-center px-4 py-2">
             <nav class="flex space-x-6">
                 <a href="{{ url('/') }}" class="hover:underline">Inicio</a>
                 <a href="{{ url('/') }}" class="hover:underline">Catálogo</a>
@@ -30,7 +30,8 @@
     </div>
 
     <!-- Barra principal negra -->
-    <div class="bg-black text-white shadow fixed top-0 left-0 right-0 z-50">
+    <div class="bg-black text-white shadow fixed top-8 left-0 right-0 z-50">
+
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
             <!-- Logo -->
             <div class="flex-shrink-0">
@@ -73,19 +74,15 @@
                 <a href="{{ url('/') }}" class="bg-white text-black rounded p-2 shadow" title="Pedidos">
                     <i class="fas fa-clipboard-list fa-lg"></i>
                 </a>
-                <a href="{{ url('/') }}" class="bg-[#556B2F] hover:bg-[#2F4F4F] text-white rounded-full p-3 relative" title="Carrito">
+                <a href="{{ route('web.cart.index') }}" class="bg-[#556B2F] hover:bg-[#2F4F4F] text-white rounded-full p-3 relative" title="Carrito">
                     <i class="fas fa-shopping-cart fa-lg"></i>
-                    @if(session('cart') && count(session('cart')) > 0)
-                        <span class="absolute top-0 right-0 bg-red-600 rounded-full text-xs w-5 h-5 flex items-center justify-center">
-                            {{ count(session('cart')) }}
-                        </span>
-                    @endif
+                    <span id="cart-count" class="cart-count absolute top-0 right-0 bg-red-600 rounded-full text-xs w-5 h-5 flex items-center justify-center" style="display: none;">0</span>
                 </a>
             </div>
         </div>
 
         <!-- Barra inferior con categorías -->
-        <nav class="bg-black border-t border-gray-700">
+        <nav class="bg-black">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <ul class="flex space-x-6 text-[#556B2F] font-semibold py-2">
                     <!-- Dropdown Accesorios -->

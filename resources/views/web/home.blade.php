@@ -15,16 +15,16 @@
                     <!-- Slide 1: T4E -->
                     <div class="swiper-slide flex flex-col md:flex-row items-center justify-center text-white h-screen bg-transparent" style="background: transparent !important;">
                         <div class="md:w-1/2 flex justify-center" data-aos="fade-left" data-aos-delay="200">
-                            <img src="{{ asset('images/t4e-hero.png') }}" 
+                            <img src="{{ asset('images/logo.png') }}" 
                                  alt="T4E" 
-                                 class="object-contain max-h-[28rem] drop-shadow-lg bg-transparent" />
+                                 class="object-contain max-h-[38rem] drop-shadow-lg bg-transparent" />
                         </div>
                         <div class="md:w-1/2 mt-8 md:mt-0 md:pl-12 bg-transparent" style="background: transparent !important;">
                             <h2 class="text-5xl font-extrabold text-[#556B2F] mb-4"
-                                data-aos="fade-right" data-aos-delay="400">T4E</h2>
+                                data-aos="fade-right" data-aos-delay="400">Valle Tactico</h2>
                             <p class="text-lg mb-4 max-w-md"
                                data-aos="fade-right" data-aos-delay="600">
-                                Arma de entrenamiento con características realistas y segura para prácticas.
+                                Ven a visitarnos y descubre nuestra amplia gama de armas y accesorios tácticos en Ulriksen.
                             </p>
                             <p class="text-4xl font-extrabold text-[#8F9779] mb-6 transform scale-75"
                                data-aos="zoom-in" data-aos-delay="800" data-aos-easing="ease-in-out" data-aos-duration="600">$350.000</p>
@@ -59,6 +59,29 @@
                             </a>
                         </div>
                     </div>
+                                        <!-- Slide 1: T4E -->
+                    <div class="swiper-slide flex flex-col md:flex-row items-center justify-center text-white h-screen bg-transparent" style="background: transparent !important;">
+                        <div class="md:w-1/2 flex justify-center" data-aos="fade-left" data-aos-delay="200">
+                            <img src="{{ asset('images/t4e-hero.png') }}" 
+                                 alt="T4E" 
+                                 class="object-contain max-h-[28rem] drop-shadow-lg bg-transparent" />
+                        </div>
+                        <div class="md:w-1/2 mt-8 md:mt-0 md:pl-12 bg-transparent" style="background: transparent !important;">
+                            <h2 class="text-5xl font-extrabold text-[#556B2F] mb-4"
+                                data-aos="fade-right" data-aos-delay="400">T4E</h2>
+                            <p class="text-lg mb-4 max-w-md"
+                               data-aos="fade-right" data-aos-delay="600">
+                                Arma de entrenamiento con características realistas y segura para prácticas.
+                            </p>
+                            <p class="text-4xl font-extrabold text-[#8F9779] mb-6 transform scale-75"
+                               data-aos="zoom-in" data-aos-delay="800" data-aos-easing="ease-in-out" data-aos-duration="600">$350.000</p>
+                            <a href="#"
+                               class="inline-block bg-[#556B2F] hover:bg-[#2F4F4F] text-white font-semibold py-3 px-8 rounded shadow-lg"
+                               data-aos="fade-up" data-aos-delay="1000" data-aos-anchor-placement="bottom-bottom" data-aos-duration="600" data-aos-easing="ease-in-out" data-aos-offset="100" data-aos-anchor=".swiper-slide">
+                                Ver Más
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Pagination & Navigation -->
@@ -72,26 +95,32 @@
     <!-- Sección Categorías con carrusel -->
     <section class="max-w-7xl mx-auto px-4 py-12">
         <h2 class="text-3xl font-bold mb-8">Categorías</h2>
-        <div class="swiper categoriesSwiper">
-            <div class="swiper-wrapper">
-                @foreach($categories as $category)
-                <div class="swiper-slide relative rounded-lg overflow-hidden shadow-lg cursor-pointer hover:shadow-2xl transition-shadow duration-300">
-                    <a href="{{ route('web.category.show', $category->slug) }}" class="block w-full h-full">
-                        <!-- Placeholder image for now - you can add category images later -->
-                        <div class="w-full h-40 bg-gradient-to-br from-[#556B2F] to-[#2F4F4F] flex items-center justify-center">
-                            <i class="fas fa-tag text-white text-4xl"></i>
-                        </div>
-                        <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center text-white p-4">
-                            <span class="font-semibold text-lg px-4 py-2 bg-[#556B2F] rounded-full mb-2">{{ $category->name }}</span>
-                            <span class="text-sm">{{ $category->products_count }} productos</span>
-                        </div>
-                    </a>
+        @if($categories->count() > 0)
+            <div class="swiper categoriesSwiper">
+                <div class="swiper-wrapper">
+                    @foreach($categories as $category)
+                    <div class="swiper-slide relative rounded-lg overflow-hidden shadow-lg cursor-pointer hover:shadow-2xl transition-shadow duration-300">
+                        <a href="{{ route('web.category.show', $category->slug) }}" class="block w-full h-full">
+                            <!-- Placeholder image for now - you can add category images later -->
+                            <div class="w-full h-40 bg-gradient-to-br from-[#556B2F] to-[#2F4F4F] flex items-center justify-center">
+                                <i class="fas fa-tag text-white text-4xl"></i>
+                            </div>
+                            <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center text-white p-4">
+                                <span class="font-semibold text-lg px-4 py-2 bg-[#556B2F] rounded-full mb-2">{{ $category->name }}</span>
+                                <span class="text-sm">{{ $category->products_count }} productos</span>
+                            </div>
+                        </a>
+                    </div>
+                    @endforeach
                 </div>
-                @endforeach
+                <!-- Paginación -->
+                <div class="swiper-pagination"></div>
             </div>
-            <!-- Paginación -->
-            <div class="swiper-pagination"></div>
-        </div>
+        @else
+            <div class="text-center py-12">
+                <p class="text-gray-500 text-lg">No hay categorías disponibles en este momento.</p>
+            </div>
+        @endif
     </section>
 
     <!-- Sección Productos Destacados -->
@@ -191,9 +220,9 @@
     <section class="max-w-7xl mx-auto px-4 py-12">
         <h2 class="text-3xl font-bold mb-8">Nuestra Armería</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <img src="{{ asset('images/armeria1.jpg') }}" alt="Armería 1" class="rounded-lg object-cover h-64 w-full" />
-            <img src="{{ asset('images/armeria2.jpg') }}" alt="Armería 2" class="rounded-lg object-cover h-64 w-full" />
-            <img src="{{ asset('images/armeria3.jpg') }}" alt="Armería 3" class="rounded-lg object-cover h-64 w-full" />
+            <img src="{{ asset('images/armeria1.webp') }}" alt="Armería 1" class="rounded-lg object-cover h-64 w-full" />
+            <img src="{{ asset('images/armeria2.webp') }}" alt="Armería 2" class="rounded-lg object-cover h-64 w-full" />
+            <img src="{{ asset('images/armeria3.webp') }}" alt="Armería 3" class="rounded-lg object-cover h-64 w-full" />
         </div>
     </section>
 
@@ -233,8 +262,7 @@
     <section class="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-2 gap-12">
         <div>
             <h2 class="text-3xl font-bold mb-6">Encuéntranos</h2>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3329.123456789!2d-70.123456!3d-33.123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzPCsDA3JzAwLjAiUyA3MMKwMDcnMDAuMCJX!5e0!3m2!1ses!2scl!4v0000000000000" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3457.5425737251126!2d-71.25587430000002!3d-29.93506840000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9691cbdea3024bab%3A0x633dff3562691f51!2sValle%20t%C3%A1ctico!5e0!3m2!1ses!2scl!4v1763131583108!5m2!1ses!2scl" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>        </div>
         <div>
             <h2 class="text-3xl font-bold mb-6">Contáctanos</h2>
             <form action="#" method="POST" class="space-y-4">

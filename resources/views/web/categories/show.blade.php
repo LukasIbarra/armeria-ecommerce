@@ -1,8 +1,10 @@
 @extends('web.layouts.app')
 
+@section('title', $category->name . ' - ' . config('app.name'))
+
 @section('content')
     <!-- Hero Section -->
-    <div class="bg-gradient-to-r from-red-600 to-red-800 text-white py-16">
+    <div class="bg-gradient-to-r from-green-600 to-green-800 text-white py-16">
         <div class="container mx-auto px-4">
             <div class="text-center">
                 <h1 class="text-4xl md:text-5xl font-bold mb-4">{{ $category->name }}</h1>
@@ -19,7 +21,7 @@
                                placeholder="Buscar en {{ $category->name }}..."
                                class="flex-1 px-4 py-2 rounded-l-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-300">
                         <button type="submit"
-                                class="bg-white text-red-600 px-6 py-2 rounded-r-lg hover:bg-gray-100 transition-colors font-semibold">
+                                class="bg-white text-green-600 px-6 py-2 rounded-r-lg hover:bg-gray-100 transition-colors font-semibold">
                             <i class="fas fa-search"></i>
                         </button>
                     </form>
@@ -76,7 +78,7 @@
                         <!-- Botones -->
                         <div class="space-y-2">
                             <button type="submit"
-                                    class="w-full bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700 transition-colors font-medium">
+                                    class="w-full bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition-colors font-medium">
                                 Aplicar Filtros
                             </button>
                             <a href="{{ route('web.category.show', $category->slug) }}"
@@ -91,12 +93,12 @@
                         <h4 class="font-medium mb-3 text-gray-700">Navegación</h4>
                         <div class="space-y-2">
                             <a href="{{ route('web.category.index') }}"
-                               class="block text-sm text-gray-600 hover:text-red-600 transition-colors">
+                               class="block text-sm text-gray-600 hover:text-green-600 transition-colors">
                                 <i class="fas fa-arrow-left mr-2"></i>
                                 Todas las categorías
                             </a>
                             <a href="{{ route('web.product.index') }}"
-                               class="block text-sm text-gray-600 hover:text-red-600 transition-colors">
+                               class="block text-sm text-gray-600 hover:text-green-600 transition-colors">
                                 <i class="fas fa-th mr-2"></i>
                                 Todos los productos
                             </a>
@@ -126,7 +128,7 @@
                         <select name="sort"
                                 form="filterForm"
                                 onchange="document.getElementById('filterForm').submit()"
-                                class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500 text-sm">
+                                class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500 text-sm">
                             <option value="name" {{ request('sort') == 'name' ? 'selected' : '' }}>Nombre A-Z</option>
                             <option value="price" {{ request('sort') == 'price' ? 'selected' : '' }}>Precio menor a mayor</option>
                             <option value="newest" {{ request('sort') == 'newest' ? 'selected' : '' }}>Más recientes</option>
@@ -163,7 +165,7 @@
                         </p>
                         <div class="flex gap-4 justify-center">
                             <a href="{{ route('web.category.show', $category->slug) }}"
-                               class="inline-block bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition-colors font-medium">
+                               class="inline-block bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors font-medium">
                                 Ver todos en {{ $category->name }}
                             </a>
                             <a href="{{ route('web.product.index') }}"

@@ -21,7 +21,10 @@ Route::name('web.')->group(function () {
 
     // Cart
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-    // Additional cart routes like add, remove can be added later
+    Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
+    Route::patch('/cart/items/{cartItem}', [CartController::class, 'update'])->name('cart.update');
+    Route::delete('/cart/items/{cartItem}', [CartController::class, 'destroy'])->name('cart.destroy');
+    Route::delete('/cart', [CartController::class, 'clear'])->name('cart.clear');
 });
 
 Route::get('/dashboard', function () {

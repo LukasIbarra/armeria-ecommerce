@@ -1,12 +1,12 @@
                                               @props(['product'])
 
-<div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+<div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 h-full flex flex-col">
     <div class="relative">
         @if($product->mainImage)
-            <div class="w-full h-48 bg-gray-100 rounded-lg overflow-hidden">
+            <div class="w-full h-48 bg-white rounded-lg overflow-hidden">
                 <img src="{{ asset('storage/' . $product->mainImage->path) }}"
                      alt="{{ $product->name }}"
-                     class="w-full h-full object-cover">
+                     class="w-full h-full object-contain">
             </div>
         @else
             <div class="w-full h-48 bg-gray-200 flex items-center justify-center rounded-lg">
@@ -27,22 +27,22 @@
         @endif
     </div>
 
-    <div class="p-4">
+    <div class="p-4 flex-1 flex flex-col">
         <div class="mb-2">
             <span class="text-xs text-gray-500 uppercase tracking-wide">
                 {{ $product->category->name }}
             </span>
         </div>
 
-        <h3 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+        <h3 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-2 flex-1">
             <a href="{{ route('web.product.show', $product->slug) }}"
-               class="hover:text-red-600 transition-colors">
+               class="hover:text-green-600 transition-colors">
                 {{ $product->name }}
             </a>
         </h3>
 
         <div class="flex items-center justify-between mb-3">
-            <span class="text-xl font-bold text-red-600">
+            <span class="text-xl font-bold text-green-800">
                 {{ $product->formatted_price }}
             </span>
             <span class="text-sm text-gray-500">
@@ -50,7 +50,7 @@
             </span>
         </div>
 
-        <div class="flex gap-2">
+        <div class="flex gap-2 mt-auto">
             <a href="{{ route('web.product.show', $product->slug) }}"
                class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded text-center text-sm font-medium transition-colors">
                 Ver Detalles
@@ -58,7 +58,8 @@
             <button class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors add-to-cart"
                     data-product-id="{{ $product->id }}"
                     data-product-name="{{ $product->name }}"
-                    data-price="{{ $product->price }}">
+                    data-price="{{ $product->price }}"
+                    onclick="addToCart({{ $product->id }}, '{{ $product->name }}', {{ $product->price }})">
                 <i class="fas fa-cart-plus"></i>
             </button>
         </div>

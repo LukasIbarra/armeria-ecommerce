@@ -1,9 +1,9 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/laravel",
+    "name": "armeria/valle-tactico",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "description": "Armería Valle Táctico - E-commerce de armas y accesorios tácticos",
+    "keywords": ["armeria", "valle-tactico", "ecommerce", "armas", "tactico"],
     "license": "MIT",
     "require": {
         "php": "^8.2",
